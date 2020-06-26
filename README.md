@@ -69,7 +69,7 @@ Content-Type: application/json
 |------|----------------------|-------------------------------------------------------------------------------------|
 | 200  | Success              | Resulting Payload                                                                   |
 | 400  | Invalid Request      | Invalid request format / Invalid request data: `watchId` is unknown                 |
-| 4xx  | Specific REST error  | Incorrect API usage                                                                 |
+| 4xx  | REST API error       | Incorrect API usage                                                                 |
 | 5xx  | Internal error       | Unknown or unexpected errors                                                        |
 
 ## Tech Stack
