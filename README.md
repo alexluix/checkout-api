@@ -23,6 +23,11 @@ respectively.
 - There is no limit to the number of times a discount can be used.
 - Similarly, a user can checkout a single item if they wish.
 
+## Assumption Made
+
+- Price currency doesn't have cents — e.g. `JPY`
+- Total checkout price can't go beyond 2bi as well as watch prices
+
 ## API
 
 Endpoint
@@ -64,4 +69,13 @@ Content-Type: application/json
 
 - Build & test `mvn clean package`
 - Run `mvn spring-boot:run`
-- Use with `TODO`
+- Sample API request to `localhost`:
+```shell
+curl -X "POST" "http://localhost:8080/checkout" \
+     -H 'Content-Type: application/json; charset=utf-8' \
+     -d $'[
+  "001",
+  "002",
+  "003"
+]'
+```
