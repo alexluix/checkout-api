@@ -33,10 +33,12 @@ respectively.
 
 ## API
 
-Endpoint
-`POST http://localhost:8080/checkout`
+### Endpoint
+```text
+POST http://localhost:8080/checkout
+```
 
-Request
+### Request
 ```text
 # Headers
 Accept: application/json
@@ -52,7 +54,7 @@ Content-Type: application/json
 ]
 ```
 
-Response
+### Response
 ```text
 # Headers
 Content-Type: application/json
@@ -60,6 +62,15 @@ Content-Type: application/json
 # Body
 { "price": 360 }
 ```
+
+### Response codes
+
+| Code | Status               | Description                                                                         |
+|------|----------------------|-------------------------------------------------------------------------------------|
+| 200  | Success              | Resulting Payload                                                                   |
+| 400  | Invalid Request      | Invalid request format / Invalid request data: `watchId` is unknown                 |
+| 4xx  | Specific REST error  | Incorrect API usage                                                                 |
+| 5xx  | Internal error       | Unknown or unexpected errors                                                        |
 
 ## Tech Stack
 
