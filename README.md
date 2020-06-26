@@ -67,8 +67,8 @@ Content-Type: application/json
 
 ## Usage
 
-- Build & test `mvn clean package`
-- Run `mvn spring-boot:run`
+- Build & test `./mvnw clean package`
+- Run `./mvnw spring-boot:run`
 - Sample API request to `localhost`:
 ```shell
 curl -X "POST" "http://localhost:8080/checkout" \
