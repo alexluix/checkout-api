@@ -1,6 +1,6 @@
 package io.maha.checkout.domain
 
 data class Discount(
-        val quantity: Int,
-        val price: Int
+    val quantity: Int,
+    val price: Int
 )

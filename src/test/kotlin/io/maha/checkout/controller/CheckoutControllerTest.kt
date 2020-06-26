@@ -46,7 +46,7 @@ class CheckoutControllerTest {
     @Test
     fun `should return BadRequest status if watch is not found`() {
         whenever(checkoutService.checkout(watchIds))
-                .thenThrow(WatchNotFoundException::class.java)
+            .thenThrow(WatchNotFoundException::class.java)
 
         mockMvc.post("/checkout") {
             contentType = MediaType.APPLICATION_JSON
@@ -60,7 +60,7 @@ class CheckoutControllerTest {
     @Test
     fun `should return InternalError status in case of unexpected exception`() {
         whenever(checkoutService.checkout(watchIds))
-                .thenThrow(RuntimeException::class.java)
+            .thenThrow(RuntimeException::class.java)
 
         mockMvc.post("/checkout") {
             contentType = MediaType.APPLICATION_JSON

@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service
 class CheckoutService {
 
     private val watches = mapOf(
-            "001" to Watch("Rolex", 100, Discount(3, 200)),
-            "002" to Watch("Michael Kors", 80, Discount(2, 120)),
-            "003" to Watch("Swatch", 50),
-            "004" to Watch("Casio", 30)
+        "001" to Watch("Rolex", 100, Discount(3, 200)),
+        "002" to Watch("Michael Kors", 80, Discount(2, 120)),
+        "003" to Watch("Swatch", 50),
+        "004" to Watch("Casio", 30)
     )
 
     fun checkout(watchIds: List<String>): Int {
@@ -18,8 +18,8 @@ class CheckoutService {
         }
 
         val byCountWatches: Map<Watch, Int> = watchIds
-                .mapNotNull { watches[it] }
-                .groupingBy { it }.eachCount()
+            .mapNotNull { watches[it] }
+            .groupingBy { it }.eachCount()
 
         val prices = byCountWatches.entries.map { watchGroup ->
             val watch = watchGroup.key
@@ -40,5 +40,4 @@ class CheckoutService {
 
         return prices.sum()
     }
-
 }
