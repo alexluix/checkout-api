@@ -4,6 +4,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.nhaarman.mockitokotlin2.whenever
 import io.maha.checkout.controller.dto.Price
 import io.maha.checkout.domain.CheckoutService
+import io.maha.checkout.domain.WatchNotFoundException
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -23,10 +24,11 @@ class CheckoutControllerTest {
 
     private val objectMapper = jacksonObjectMapper()
 
+    private val watchIds = listOf("001", "002", "003")
+    private val expectedPrice = 360
+
     @Test
-    fun `should calculate total price`() {
-        val watchIds = listOf("001", "002", "001", "004", "003")
-        val expectedPrice = 360
+    fun `should calculate total price for given watches`() {
         whenever(checkoutService.checkout(watchIds)).thenReturn(expectedPrice)
 
         mockMvc.post("/checkout") {
@@ -37,6 +39,34 @@ class CheckoutControllerTest {
             status { isOk }
             content { contentType(MediaType.APPLICATION_JSON) }
             content { json(objectMapper.writeValueAsString(Price(expectedPrice))) }
+        }
+    }
+
+    @Test
+    fun `should return BadRequest status if watch is not found`() {
+        whenever(checkoutService.checkout(watchIds))
+                .thenThrow(WatchNotFoundException::class.java)
+
+        mockMvc.post("/checkout") {
+            contentType = MediaType.APPLICATION_JSON
+            content = objectMapper.writeValueAsString(watchIds)
+            accept = MediaType.APPLICATION_JSON
+        }.andExpect {
+            status { isBadRequest }
+        }
+    }
+
+    @Test
+    fun `should return InternalError status in case of unexpected exception`() {
+        whenever(checkoutService.checkout(watchIds))
+                .thenThrow(RuntimeException::class.java)
+
+        mockMvc.post("/checkout") {
+            contentType = MediaType.APPLICATION_JSON
+            content = objectMapper.writeValueAsString(watchIds)
+            accept = MediaType.APPLICATION_JSON
+        }.andExpect {
+            status { isInternalServerError }
         }
     }
 }
