@@ -1,5 +1,8 @@
 # Code challenge: Checkout API
 
+![CI](https://github.com/landpro/checkout-api/workflows/CI/badge.svg)
+[![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
+
 ## Task
 
 We would like you to build a simplified e-commerce API with a single endpoint that performs a
@@ -67,7 +70,8 @@ Content-Type: application/json
 
 ## Usage
 
-- Build & test `./mvnw clean package`
+- Build & test `./mvnw clean verify`
+- Fix kt-lint issues `./mvnw ktlint:format`
 - Run `./mvnw spring-boot:run`
 - Sample API request to `localhost`:
 ```shell

@@ -16,4 +16,4 @@ jobs:
           java-package: jdk
           architecture: x64
       - name: Run maven build
-        run: ./mvnw clean package
+        run: ./mvnw clean verify
