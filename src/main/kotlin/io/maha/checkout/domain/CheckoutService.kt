@@ -13,7 +13,14 @@ class CheckoutService {
     )
 
     fun checkout(watchIds: List<String>): Int {
-        return 0
+        if (!watchIds.all { watches.containsKey(it) }) {
+            throw WatchNotFoundException()
+        }
+
+        return watchIds
+                .mapNotNull { watches[it] }
+                .map { it.price }
+                .sum()
     }
 
 }
