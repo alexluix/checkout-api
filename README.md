@@ -23,7 +23,7 @@ respectively.
 - There is no limit to the number of times a discount can be used.
 - Similarly, a user can checkout a single item if they wish.
 
-## Assumption Made
+## Assumptions Made
 
 - Price currency doesn't have cents — e.g. `JPY`
 - Total checkout price can't go beyond 2bi as well as watch prices
