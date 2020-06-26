@@ -17,10 +17,28 @@ class CheckoutService {
             throw WatchNotFoundException()
         }
 
-        return watchIds
+        val byCountWatches: Map<Watch, Int> = watchIds
                 .mapNotNull { watches[it] }
-                .map { it.price }
-                .sum()
+                .groupingBy { it }.eachCount()
+
+        val prices = byCountWatches.entries.map { watchGroup ->
+            val watch = watchGroup.key
+            val count = watchGroup.value
+
+            if (watch.discount != null) {
+                val discountQuantity = watch.discount.quantity
+                val discountPrice = watch.discount.price
+
+                val noOfDiscounts = count / discountQuantity
+                val remainingItems = count % discountQuantity
+
+                noOfDiscounts * discountPrice + remainingItems * watch.price
+            } else {
+                watch.price * count
+            }
+        }
+
+        return prices.sum()
     }
 
 }
